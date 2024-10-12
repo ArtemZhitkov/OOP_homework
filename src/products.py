@@ -17,11 +17,13 @@ class Category:
         Category.category_count += 1
 
     def add_product(self, product):
+        """Метод добавляет продукт к списку продуктов в категории"""
         self.__products.append(product)
         Category.product_count += 1
 
     @property
     def products(self):
+        """Метод возвращает строку с названием продукта его стоимость и остаток"""
         products_string = ""
         for product in self.__products:
             products_string += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
@@ -45,14 +47,17 @@ class Product:
 
     @classmethod
     def new_product(cls, product: dict):
+        """Метод добавляет новый продукт"""
         return cls(**product)
 
     @property
     def price(self):
+        """Метод возвращает цену продукта"""
         return self.__price
 
     @price.setter
     def price(self, new_price):
+        """Метод позволяет изменить цену продукта"""
         if new_price <= 0:
             print("Цена не должна быть нулевая или отрицательная")
         elif new_price < self.__price:
