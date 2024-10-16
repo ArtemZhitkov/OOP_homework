@@ -15,6 +15,26 @@ class Category:
         self.__products = products if products else []
         Category.product_count += len(products)
         Category.category_count += 1
+        self.products_index = 0
+
+    def __str__(self):
+        """Магический метод возвращающий строковое отображение информации о количестве продуктов"""
+        count_products = 0
+        for product in self.__products:
+            count_products += product.quantity
+        return f"{self.name}, количество продуктов: {count_products} шт."
+
+    def __iter__(self):
+        self.products_index = 0
+        return self
+
+    def __next__(self):
+        if self.products_index < len(self.__products):
+            result = self.__products[self.products_index]
+            self.products_index += 1
+            return str(result)
+        else:
+            raise StopIteration
 
     def add_product(self, product):
         """Метод добавляет продукт к списку продуктов в категории"""
@@ -26,7 +46,7 @@ class Category:
         """Метод возвращает строку с названием продукта его стоимость и остаток"""
         products_string = ""
         for product in self.__products:
-            products_string += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+            products_string += f"{str(product)}\n"
         return products_string
 
 
@@ -45,10 +65,24 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+    def __str__(self):
+        """Магический метод возвращающий строковое отображение информации о стоимости и количестве продукта"""
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        """Магический метод возвращает сумму цен двух товаров"""
+        return (self.price * self.quantity) + (other.price * other.quantity)
+
     @classmethod
-    def new_product(cls, product: dict):
+    def new_product(cls, dict_product: dict, products=None):
         """Метод добавляет новый продукт"""
-        return cls(**product)
+        if products:
+            for product in products:
+                if product.name == dict_product["name"]:
+                    product.quantity += dict_product["quantity"]
+                    product.price = max([product.price, product["price"]])
+                    return product
+        return cls(**dict_product)
 
     @property
     def price(self):
