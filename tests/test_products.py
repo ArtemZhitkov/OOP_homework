@@ -1,5 +1,7 @@
 from unittest.mock import patch
 
+import pytest
+
 from src.products import Product
 
 
@@ -15,6 +17,7 @@ def test_products(product) -> None:
     assert product.name == "Nokia 3310"
     assert product.price == 9.99
     assert product.quantity == 1
+    assert str(product) == "Nokia 3310, 9.99 руб. Остаток: 1 шт."
 
 
 def test_category_property(category_test):
@@ -46,3 +49,18 @@ def test_new_price_negative(capsys, product):
 def test_new_price_low(mock, product):
     product.price = 5
     assert product.price == 5
+
+
+def test_iter_category(category_test):
+    assert next(category_test) == "Samsung Galaxy C23 Ultra, 180000.0 руб. Остаток: 5 шт."
+    assert next(category_test) == "Iphone 15, 210000.0 руб. Остаток: 8 шт."
+    with pytest.raises(StopIteration):
+        next(category_test)
+
+
+def test_category_str(category_test):
+    assert str(category_test) == "Смартфоны, количество продуктов: 13 шт."
+
+
+def test_add(product2, product3):
+    assert product2 + product3 == 2580000.0
