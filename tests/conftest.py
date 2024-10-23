@@ -2,7 +2,8 @@ import json
 
 import pytest
 
-from src.products import Category, Product
+from src.products import Product
+from src.categories import Category
 
 
 @pytest.fixture
