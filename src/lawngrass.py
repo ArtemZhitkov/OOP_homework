@@ -2,7 +2,8 @@ from src.products import Product
 
 
 class LawnGrass(Product):
-    """ Класс наследуемый от класса Product"""
+    """Класс наследуемый от класса Product"""
+
     country: str
     germination_period: str
     color: str

@@ -2,7 +2,8 @@ from src.products import Product
 
 
 class Smartphone(Product):
-    """ Класс наследуемый от класса Product"""
+    """Класс наследуемый от класса Product"""
+
     efficiency: float
     model: str
     memory: int

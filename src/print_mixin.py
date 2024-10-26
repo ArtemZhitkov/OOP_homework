@@ -1,4 +1,6 @@
 class PrintMixin:
+    """Класс для логирование вызова классовых методов"""
+
     def __init__(self):
         print(repr(self))
 
