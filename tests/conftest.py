@@ -2,7 +2,10 @@ import json
 
 import pytest
 
-from src.products import Category, Product
+from src.categories import Category
+from src.lawngrass import LawnGrass
+from src.products import Product
+from src.smartphone import Smartphone
 
 
 @pytest.fixture
@@ -69,3 +72,13 @@ def new_product() -> dict:
         "price": 180000.0,
         "quantity": 5,
     }
+
+
+@pytest.fixture
+def lawn_grass_1():
+    return LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
+
+
+@pytest.fixture
+def smartphone1():
+    return Smartphone("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14, 90.3, "Note 11", 1024, "Синий")
