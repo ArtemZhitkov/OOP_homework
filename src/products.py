@@ -1,4 +1,8 @@
-class Product:
+from src.base_product import BaseProduct
+from src.print_mixin import PrintMixin
+
+
+class Product(BaseProduct, PrintMixin):
     """Класс описывает название продукта, назначение, цену и количество продукта"""
 
     name: str
@@ -12,6 +16,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
 
     def __str__(self):
         """Магический метод возвращающий строковое отображение информации о стоимости и количестве продукта"""
@@ -31,7 +36,7 @@ class Product:
             for product in products:
                 if product.name == dict_product["name"]:
                     product.quantity += dict_product["quantity"]
-                    product.price = max([product.price, product["price"]])
+                    product.price = max([product.price, dict_product["price"]])
                     return product
         return cls(**dict_product)
 
