@@ -56,3 +56,8 @@ def test_add_products(new_product):
     assert result.quantity == 10
     assert result.price == 180000.0
     assert result.name == "Samsung Galaxy C23 Ultra"
+
+
+def test_product_non_quantity():
+    with pytest.raises(ValueError):
+        Product("test", "test", 1.1, 0)
